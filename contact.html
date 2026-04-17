@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Emma Paige</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Didact+Gothic&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf7f2;
+      --ink: #1a1714;
+      --mid: #8a8278;
+      --accent: #c8bfb0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Didact Gothic', sans-serif;
+      letter-spacing: 0.08em;
+      color-scheme: light only;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      z-index: 50;
+      mix-blend-mode: multiply;
+      gap: 4rem;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      font-family: 'Didact Gothic', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-links a:hover { opacity: 0.4; }
+    .nav-links a.active { border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+
+    /* PAGE */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    /* LEFT */
+    .left-col {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.3s;
+    }
+
+    .page-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      color: var(--mid);
+      margin-bottom: 3rem;
+    }
+
+    /* CONTACT INFO */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 1.4rem 0;
+      border-top: 1px solid var(--accent);
+    }
+
+    .contact-row:last-child {
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .contact-label {
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .contact-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.3s ease;
+      width: fit-content;
+    }
+
+    .contact-value:hover { opacity: 0.4; }
+
+    .contact-value svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--ink);
+      flex-shrink: 0;
+    }
+
+    /* RIGHT — FORM */
+    .right-col {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.6s;
+    }
+
+    .form-label-top {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--accent);
+      padding: 0.6rem 0;
+      font-family: 'Didact Gothic', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      outline: none;
+      width: 100%;
+      transition: border-color 0.3s ease;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-bottom-color: var(--ink);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--accent);
+      font-size: 0.7rem;
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    .form-group select option {
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    .submit-btn {
+      align-self: flex-start;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 3px;
+      font-family: 'Didact Gothic', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover { opacity: 0.4; }
+
+    /* SUCCESS MESSAGE */
+    .form-success {
+      display: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--mid);
+      padding: 1rem 0;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      grid-column: 1 / -1;
+      padding-top: 2rem;
+      border-top: 1px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1s;
+    }
+
+    .footer-text {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; gap: 1rem; }
+      .nav-logo { font-size: 0.75rem; letter-spacing: 0.15em; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.55rem; letter-spacing: 0.12em; }
+
+      .page {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 7rem 1.5rem 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Emma Paige</a>
+    <ul class="nav-links">
+      <li><a href="archive.html">Archive</a></li>
+      <li><a href="details.html">Details</a></li>
+      <li><a href="style.html">Style</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+
+    <!-- LEFT -->
+    <div class="left-col">
+      <p class="page-label">Inquiries</p>
+      <h1 class="page-title">Contact</h1>
+
+      <div class="contact-list">
+
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <!--
+            REPLACE: swap hello@emmapaige.ca with your actual email
+          -->
+          <a href="mailto:hello@emmapaige.ca" class="contact-value">hello@emmapaige.ca</a>
+        </div>
+
+        <div class="contact-row">
+          <span class="contact-label">Instagram</span>
+          <a href="https://instagram.com/emmapa.ge" target="_blank" class="contact-value">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            @emmapa.ge
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT — FORM -->
+    <div class="right-col">
+      <span class="form-label-top">Send a message</span>
+
+      <div class="contact-form" id="contact-form">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Inquiry Type</label>
+          <select id="subject">
+            <option value="" disabled selected>Select one</option>
+            <option value="collaboration">Collaboration</option>
+            <option value="photography">Photography</option>
+            <option value="brand">Brand Inquiry</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell me about your project..."></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="handleSubmit()">Send →</button>
+
+        <p class="form-success" id="form-success">Thank you — I'll be in touch soon.</p>
+
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <span class="footer-text">emmapaige.ca</span>
+      <span class="footer-text">© 2025</span>
+    </footer>
+
+  </main>
+
+  <script>
+    function handleSubmit() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        return;
+      }
+
+      // Replace this with a real form service like Formspree or Netlify Forms
+      // when the site goes live. For now it shows a success message.
+      document.getElementById('contact-form').style.opacity = '0.3';
+      document.getElementById('contact-form').style.pointerEvents = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

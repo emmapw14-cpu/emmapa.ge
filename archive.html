@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Archive — Emma Paige</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Didact+Gothic&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf7f2;
+      --ink: #1a1714;
+      --mid: #8a8278;
+      --accent: #c8bfb0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Didact Gothic', sans-serif;
+      letter-spacing: 0.08em;
+      color-scheme: light only;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      z-index: 50;
+      mix-blend-mode: multiply;
+      gap: 4rem;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      font-family: 'Didact Gothic', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-links a:hover { opacity: 0.4; }
+    .nav-links a.active { border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+
+    /* PAGE */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10rem 3rem 6rem;
+    }
+
+    .page-header {
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.3s;
+    }
+
+    .page-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      color: var(--mid);
+    }
+
+    /* ARCHIVE LIST */
+    .archive-list {
+      list-style: none;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.6s;
+    }
+
+    .archive-item {
+      border-top: 1px solid var(--accent);
+    }
+
+    .archive-item:last-child {
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .archive-link {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.4rem 0;
+      text-decoration: none;
+      color: var(--ink);
+      transition: opacity 0.3s ease;
+      gap: 2rem;
+    }
+
+    .archive-link:hover {
+      opacity: 0.4;
+    }
+
+    .archive-link:hover .archive-arrow {
+      transform: translateX(4px);
+    }
+
+    .archive-left {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      flex: 1;
+    }
+
+    .archive-index {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      min-width: 1.5rem;
+    }
+
+    .archive-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      letter-spacing: 0.02em;
+    }
+
+    .archive-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .archive-count {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .archive-arrow {
+      font-size: 0.7rem;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      margin-top: 6rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1s;
+    }
+
+    .footer-text {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1.2rem 1.5rem;
+        gap: 1rem;
+      }
+      .nav-logo { font-size: 0.75rem; letter-spacing: 0.15em; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.55rem; letter-spacing: 0.12em; }
+
+      .page {
+        padding: 7rem 1.5rem 4rem;
+      }
+
+      .archive-left {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Emma Paige</a>
+    <ul class="nav-links">
+      <li><a href="archive.html" class="active">Archive</a></li>
+      <li><a href="details.html">Details</a></li>
+      <li><a href="style.html">Style</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+
+    <header class="page-header">
+      <p class="page-label">All Shoots</p>
+      <h1 class="page-title">Archive</h1>
+    </header>
+
+    <ul class="archive-list">
+
+      <!--
+        HOW TO ADD A NEW SHOOT:
+        Copy one <li> block below, paste it at the bottom of the list,
+        and update:
+        - The href to your new collection page filename
+        - The archive-index number
+        - The archive-name (shoot title)
+        - The archive-count (number of photos)
+      -->
+
+      <li class="archive-item">
+        <a href="collection-01.html" class="archive-link">
+          <div class="archive-left">
+            <span class="archive-index">01</span>
+            <span class="archive-name">Shoot Title Here</span>
+          </div>
+          <div class="archive-right">
+            <span class="archive-count">12 photos</span>
+            <span class="archive-arrow">→</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="archive-item">
+        <a href="collection-02.html" class="archive-link">
+          <div class="archive-left">
+            <span class="archive-index">02</span>
+            <span class="archive-name">Shoot Title Here</span>
+          </div>
+          <div class="archive-right">
+            <span class="archive-count">8 photos</span>
+            <span class="archive-arrow">→</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="archive-item">
+        <a href="collection-03.html" class="archive-link">
+          <div class="archive-left">
+            <span class="archive-index">03</span>
+            <span class="archive-name">Shoot Title Here</span>
+          </div>
+          <div class="archive-right">
+            <span class="archive-count">15 photos</span>
+            <span class="archive-arrow">→</span>
+          </div>
+        </a>
+      </li>
+
+    </ul>
+
+    <footer class="page-footer">
+      <span class="footer-text">emmapaige.ca</span>
+      <span class="footer-text">© 2025</span>
+    </footer>
+
+  </main>
+
+</body>
+</html>

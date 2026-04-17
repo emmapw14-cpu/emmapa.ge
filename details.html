@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Details — Emma Paige</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Didact+Gothic&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf7f2;
+      --ink: #1a1714;
+      --mid: #8a8278;
+      --accent: #c8bfb0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Didact Gothic', sans-serif;
+      letter-spacing: 0.08em;
+      color-scheme: light only;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      z-index: 50;
+      mix-blend-mode: multiply;
+      gap: 4rem;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      font-family: 'Didact Gothic', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-links a:hover { opacity: 0.4; }
+    .nav-links a.active { border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+
+    /* PAGE */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10rem 3rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+    }
+
+    /* LEFT COLUMN */
+    .left-col {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.3s;
+    }
+
+    .page-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      color: var(--mid);
+      margin-bottom: 3rem;
+    }
+
+    /* BIO */
+    .bio {
+      font-size: 0.75rem;
+      line-height: 1.9;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      max-width: 38ch;
+    }
+
+    /* PHOTO */
+    .details-photo {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      object-position: center top;
+      filter: contrast(1.03) saturate(0.88);
+      display: block;
+    }
+
+    .details-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: linear-gradient(160deg, #d9d2c7, #c4bdb2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .details-photo-placeholder span {
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      opacity: 0.6;
+    }
+
+    /* RIGHT COLUMN */
+    .right-col {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.6s;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    /* STATS */
+    .stats-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .stats-title {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--accent);
+    }
+
+    .stat-row:last-child {
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+
+    /* CONTACT CTA */
+    .cta {
+      margin-top: auto;
+    }
+
+    .cta-text {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      transition: opacity 0.3s ease;
+    }
+
+    .cta-link:hover { opacity: 0.4; }
+
+    /* FOOTER */
+    .page-footer {
+      grid-column: 1 / -1;
+      padding-top: 2rem;
+      border-top: 1px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1s;
+      margin-top: -4rem;
+    }
+
+    .footer-text {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; gap: 1rem; }
+      .nav-logo { font-size: 0.75rem; letter-spacing: 0.15em; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.55rem; letter-spacing: 0.12em; }
+
+      .page {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 7rem 1.5rem 4rem;
+      }
+
+      .page-footer {
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Emma Paige</a>
+    <ul class="nav-links">
+      <li><a href="archive.html">Archive</a></li>
+      <li><a href="details.html" class="active">Details</a></li>
+      <li><a href="style.html">Style</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+
+    <div class="left-col">
+      <p class="page-label">About</p>
+      <h1 class="page-title">Details</h1>
+
+      <p class="bio">Emma Paige is a model and creative based in Ontario. Since 2024 she has been collaborating with photographers, bringing a natural ease and an instinct for beauty and style to every shoot.</p>
+
+      <br><br>
+
+      <!--
+        REPLACE: Remove the placeholder below and uncomment the img tag,
+        replacing YOUR-PHOTO.jpg with your actual image filename.
+        <img src="YOUR-PHOTO.jpg" alt="Emma Paige" class="details-photo" />
+      -->
+      <div class="details-photo-placeholder">
+        <span>your image here</span>
+      </div>
+    </div>
+
+    <div class="right-col">
+
+      <div class="stats-section">
+        <p class="stats-title">Measurements</p>
+
+        <div class="stat-row">
+          <span class="stat-label">Height</span>
+          <span class="stat-value">5'7"</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Weight</span>
+          <span class="stat-value">120 lbs</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Bust</span>
+          <span class="stat-value">30.5"</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Waist</span>
+          <span class="stat-value">25"</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Hips</span>
+          <span class="stat-value">27"</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Shoe</span>
+          <span class="stat-value">8</span>
+        </div>
+      </div>
+
+      <div class="stats-section">
+        <p class="stats-title">Features</p>
+
+        <div class="stat-row">
+          <span class="stat-label">Hair</span>
+          <span class="stat-value">Blonde</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Eyes</span>
+          <span class="stat-value">Grey Green</span>
+        </div>
+      </div>
+
+      <div class="cta">
+        <p class="cta-text">Available for work</p>
+        <a href="contact.html" class="cta-link">Get in touch →</a>
+      </div>
+
+    </div>
+
+    <footer class="page-footer">
+      <span class="footer-text">emmapaige.ca</span>
+      <span class="footer-text">© 2025</span>
+    </footer>
+
+  </main>
+
+</body>
+</html>
